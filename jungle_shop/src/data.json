@@ -3,44 +3,44 @@
       {"_id":"plant1",
          "title": "Monstera",
          "description": "Some text goes here",
-         "price": 10,
+         "price": 15,
          "image": "/images/plant1.jpeg", 
-         "available sizes": ["small", "medium"]
+         "availableSizes": ["small", "medium"]
       },
       {"_id":"plant2",
          "title": "Monstera",
          "description": "Some text goes here",
-         "price": 10,
+         "price": 11,
          "image": "/images/plant2.jpeg", 
-         "available sizes": ["small", "medium"]
+         "availableSizes": ["small", "medium"]
       },
       {"_id":"plant3",
          "title": "Monstera",
          "description": "Some text goes here",
-         "price": 10,
+         "price": 12,
          "image": "/images/plant3.jpeg", 
-         "available sizes": ["small", "medium"]
+         "availableSizes": ["small", "medium"]
       },
       {"_id":"plant4",
          "title": "Monstera",
          "description": "Some text goes here",
-         "price": 10,
+         "price": 13,
          "image": "/images/plant4.jpeg", 
-         "available sizes": ["small", "medium"]
+         "availableSizes": ["small", "medium"]
       },
       {"_id":"plant5",
          "title": "Monstera",
          "description": "Some text goes here",
-         "price": 10,
+         "price": 14,
          "image": "/images/plant5.jpeg", 
-         "available sizes": ["small", "medium"]
+         "availableSizes": ["small", "medium"]
       },
       {"_id":"plant6",
          "title": "Monstera",
          "description": "Some text goes here",
          "price": 10,
          "image": "/images/plant6.jpeg", 
-         "available sizes": ["small", "medium"]
+         "availableSizes": ["small", "medium"]
       }
    ]
 }

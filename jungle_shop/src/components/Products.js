@@ -6,7 +6,7 @@ const Products = (props) => {
     <div>
       <ul className="products">
         {props.products.map((product) => (
-          <li key={Products.id}>
+          <li key={product._id}>
             <div className="product">
               <a href={"#" + product._id}>
                 <img src={product.image} alt="product image"></img>

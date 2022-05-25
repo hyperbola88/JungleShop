@@ -127,6 +127,7 @@ footer {
   border: .1rem #c0c0c0 solid;
   background-color: #f0f0f0;
   cursor: pointer;
+  border-radius: 3px;
 }
 
 .button:hover {
@@ -148,6 +149,61 @@ footer {
 }
 
 .filter div {
+  flex: 1;
+}
+
+/*Cart*/
+.cart {
+  padding: 1rem;
+  padding-bottom: 1.5rem;
+  margin: 1rem;
+  display: flex;
+}
+
+.cart-header {
+  border-bottom: .1rem gray solid;
+}
+
+.cart-items {
+  padding: 0;
+  width: 100%;
+  list-style: none;
+}
+
+.cart-items img {
+  width: 5rem;
+}
+
+.cart-items li {
+  display: flex;
+}
+
+.cart-items li div {
+  padding: .5rem;
+}
+
+.cart-items li div:last-child {
+  flex: 1;
+}
+
+.right {
+  text-align: right;
+}
+
+.total {
+  padding: 1rem;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.total > div {
+  font-size: 2rem;
+}
+
+.total > div,
+.total > button {
   flex: 1;
 }
 

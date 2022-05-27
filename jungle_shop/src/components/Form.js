@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import Fade from 'react-reveal/Fade';
 
 const Form = ({ cartItems, orderHandler }) => {
   const [emailInputInfo, setEmailInputInfo] = useState("");
@@ -33,6 +34,7 @@ const Form = ({ cartItems, orderHandler }) => {
   return (
     <div className="cart">
       <form onSubmit={createOrder}>
+         <Fade top cascade>
         <ul className="form-container">
           <li>
             <label>Email</label>
@@ -68,6 +70,7 @@ const Form = ({ cartItems, orderHandler }) => {
             <button className="button primary">Submit</button>
           </li>
         </ul>
+        </Fade>
       </form>
     </div>
   );

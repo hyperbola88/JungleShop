@@ -1,23 +1,32 @@
-import React, { useCallback, useState } from "react";
+import React from "react";
+import { useDispatch, useSelector } from "react-redux";
+
 import formatCurrency from "../utils";
 import Fade from "react-reveal/Fade";
 import Modal from "react-modal";
+import { cartActions } from "../store/cart-slice";
+import { uiActions } from "../store/ui-slice";
 
 const Products = (props) => {
-  const [showModal, setShowModal] = useState(null);
+  const dispatch = useDispatch();
+  const showModal = useSelector(state => state.ui.modalVisible)
+
+  const addToCartHandler = (product) => {
+    dispatch(cartActions.addToCart(product));
+  }
 
   const modalHandler = (product) => {
-    setShowModal(product);
+    dispatch(uiActions.showModal(product));
+
   };
 
   const closeModal = () => {
-    setShowModal(null);
+    dispatch(uiActions.closeModal());
   };
 
   const modalCloseHandler = () => {
-     closeModal();
-     props.addToCart(showModal);
-
+    dispatch(cartActions.addToCart(showModal));
+    dispatch(uiActions.closeModal());
   }
 
   return (
@@ -25,9 +34,9 @@ const Products = (props) => {
       <Fade bottom cascade>
         <ul className="products">
           {props.products.map((product) => (
-            <li key={product._id} {...props}>
+            <li key={product.id}>
               <div className="product">
-                <a href={"#" + product._id}>
+                <a href={"#" + product.id}>
                   <img
                     onClick={() => modalHandler(product)}
                     src={product.image}
@@ -39,7 +48,7 @@ const Products = (props) => {
                   <div>{formatCurrency(product.price)}</div>
                   <button
                     className="button primary"
-                    onClick={() => props.addToCart(product)}
+                    onClick={() => addToCartHandler(product)}
                   >
                     Add to cart
                   </button>
@@ -64,15 +73,6 @@ const Products = (props) => {
                   <strong>{showModal.title}</strong>
                 </p>
                 <p>{showModal.description}</p>
-                <p>
-                  Available sizes:{" "}
-                  {showModal.availableSizes.map((x) => (
-                    <span>
-                      {" "}
-                      <button className="button">{x}</button>
-                    </span>
-                  ))}
-                </p>
                 <div>
                   <div className="product-price">
                     {formatCurrency(showModal.price)}

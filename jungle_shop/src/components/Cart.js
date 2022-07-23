@@ -1,14 +1,26 @@
-import React, { useState } from "react";
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+
 import Form from "./Form";
 import formatCurrency from "../utils";
-import Fade from "react-reveal/Fade";
+import Fade  from "react-reveal/Fade";
+import { uiActions } from '../store/ui-slice';
+import { cartActions } from "../store/cart-slice";
 
-const Cart = ({ cartItems, removeFromCart, orderHandler }) => {
-  const [showCheckout, setShowCheckout] = useState(false);
 
+const Cart = ({ removeFromCart, orderHandler }) => {
+  const dispatch = useDispatch();
+  const showForm = useSelector(state => state.ui.checkoutVisible);
+  const cartItems = useSelector(state => state.cart.items);
+  
   const checkoutHandler = () => {
-    setShowCheckout(true);
+    dispatch(uiActions.showCheckout());
   };
+
+  const removeFromCartHandler = (id) => {
+    dispatch(cartActions.removeFromCart(id))
+  }
+
 
   return (
     <div>
@@ -24,17 +36,17 @@ const Cart = ({ cartItems, removeFromCart, orderHandler }) => {
           <Fade left cascade>
             <ul className="cart-items">
               {cartItems.map((item) => (
-                <li key={item._id}>
+                <li key={item.id}>
                   <div>
                     <img src={item.image} alt={item.title} />
                   </div>
                   <div>
                     <div>{item.title}</div>
                     <div className="right">
-                      {item.count} x {formatCurrency(item.price)}{" "}
+                      {item.quantity} x {formatCurrency(item.price)}{" "}
                       <button
                         className="button"
-                        onClick={() => removeFromCart(item._id)}
+                        onClick={() => removeFromCartHandler(item.id)}
                       >
                         Remove
                       </button>
@@ -52,7 +64,7 @@ const Cart = ({ cartItems, removeFromCart, orderHandler }) => {
                 <div>
                   Total:{" "}
                   {formatCurrency(
-                    cartItems.reduce((a, c) => a + c.price * c.count, 0)
+                    cartItems.reduce((a, c) => a + c.price * c.quantity, 0)
                   )}
                 </div>
                 <button onClick={checkoutHandler} className="button primary">
@@ -60,7 +72,7 @@ const Cart = ({ cartItems, removeFromCart, orderHandler }) => {
                 </button>
               </div>
             </div>
-            {showCheckout && (
+            {showForm && (
               <Form cartItems={cartItems} orderHandler={orderHandler} />
             )}
           </div>

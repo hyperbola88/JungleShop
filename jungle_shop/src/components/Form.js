@@ -1,10 +1,13 @@
 import React, { useState } from "react";
+import { useSelector } from "react-redux";
 import Fade from 'react-reveal/Fade';
 
-const Form = ({ cartItems, orderHandler }) => {
+const Form = ({ orderHandler }) => {
   const [emailInputInfo, setEmailInputInfo] = useState("");
   const [nameInputInfo, setNameInputInfo] = useState("");
   const [addressInputInfo, setAddressInputInfo] = useState("");
+
+  const cart = useSelector(state => state.cart);
 
   const emailInputHandler = (event) => {
     setEmailInputInfo(event.target.value);
@@ -24,7 +27,7 @@ const Form = ({ cartItems, orderHandler }) => {
       email: emailInputInfo,
       name: nameInputInfo,
       address: addressInputInfo,
-      cartItems: cartItems,
+      cartItems: cart,
     });
     setEmailInputInfo("");
     setNameInputInfo("");

@@ -8,10 +8,10 @@ import { uiActions } from '../store/ui-slice';
 import { cartActions } from "../store/cart-slice";
 
 
-const Cart = ({ removeFromCart, orderHandler }) => {
+const Cart = ({ orderHandler }) => {
   const dispatch = useDispatch();
   const showForm = useSelector(state => state.ui.checkoutVisible);
-  const cartItems = useSelector(state => state.cart.items);
+  const cart = useSelector(state => state.cart);
   
   const checkoutHandler = () => {
     dispatch(uiActions.showCheckout());
@@ -24,18 +24,18 @@ const Cart = ({ removeFromCart, orderHandler }) => {
 
   return (
     <div>
-      {cartItems.length === 0 ? (
+      {cart.items.length === 0 ? (
         <div className="cart cart-header">Cart is empty </div>
       ) : (
         <div className="cart cart-header">
-          You have {cartItems.length} items in the cart
+          You have {cart.totalQuantity} plants in the cart
         </div>
       )}
       <div>
         <div className="cart">
           <Fade left cascade>
             <ul className="cart-items">
-              {cartItems.map((item) => (
+              {cart.items.map((item) => (
                 <li key={item.id}>
                   <div>
                     <img src={item.image} alt={item.title} />
@@ -57,14 +57,14 @@ const Cart = ({ removeFromCart, orderHandler }) => {
             </ul>
           </Fade>
         </div>
-        {cartItems.length !== 0 && (
+        {cart.items.length !== 0 && (
           <div>
             <div className="cart">
               <div className="total">
                 <div>
                   Total:{" "}
                   {formatCurrency(
-                    cartItems.reduce((a, c) => a + c.price * c.quantity, 0)
+                    cart.items.reduce((a, c) => a + c.price * c.quantity, 0)
                   )}
                 </div>
                 <button onClick={checkoutHandler} className="button primary">
@@ -73,7 +73,7 @@ const Cart = ({ removeFromCart, orderHandler }) => {
               </div>
             </div>
             {showForm && (
-              <Form cartItems={cartItems} orderHandler={orderHandler} />
+              <Form  orderHandler={orderHandler} />
             )}
           </div>
         )}

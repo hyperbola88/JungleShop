@@ -14,7 +14,6 @@ const Filter = (props) => {
 
   return (
     <div className="filter">
-      <div className="filter-result">{props.count} Products</div>
       <div className="filter-sort">
         Sort {" "}
         <select value={sort} onChange={sortHandler}>

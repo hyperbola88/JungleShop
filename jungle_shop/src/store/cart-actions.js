@@ -10,7 +10,6 @@ export const fetchCartData = () => {
         throw new Error("something went wrong");
       }
       const data = await response.json();
-      console.log("data" + data);
       return data;
     };
     try {

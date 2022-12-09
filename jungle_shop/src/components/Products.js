@@ -9,15 +9,14 @@ import { uiActions } from "../store/ui-slice";
 
 const Products = (props) => {
   const dispatch = useDispatch();
-  const showModal = useSelector(state => state.ui.modalVisible)
+  const showModal = useSelector((state) => state.ui.modalVisible);
 
   const addToCartHandler = (product) => {
     dispatch(cartActions.addToCart(product));
-  }
+  };
 
   const modalHandler = (product) => {
     dispatch(uiActions.showModal(product));
-
   };
 
   const closeModal = () => {
@@ -27,7 +26,7 @@ const Products = (props) => {
   const modalCloseHandler = () => {
     dispatch(cartActions.addToCart(showModal));
     dispatch(uiActions.closeModal());
-  }
+  };
 
   return (
     <div>
@@ -65,19 +64,26 @@ const Products = (props) => {
           ariaHideApp={false}
         >
           <Fade bottom>
-            <button onClick={closeModal} className="close-modal">x</button>
+            <button onClick={closeModal} className="close-modal">
+              x
+            </button>
             <div className="product-details">
               <img src={showModal.image} alt="plant" />
               <div className="product-details-description">
                 <p>
                   <strong>{showModal.title}</strong>
                 </p>
-                <p>{showModal.description}</p>
-                <div>
-                  <div className="product-price">
-                    {formatCurrency(showModal.price)}
+                <div className="product-details-text">{showModal.description}</div>
+                <div className="product-price">
+                  <div className="">
+                    <strong>Only {formatCurrency(showModal.price)} !</strong>
                   </div>
-                  <button className="button primary" onClick={modalCloseHandler}>Add to cart</button>
+                  <button
+                    className="button primary"
+                    onClick={modalCloseHandler}
+                  >
+                    Add to cart
+                  </button>
                 </div>
               </div>
             </div>

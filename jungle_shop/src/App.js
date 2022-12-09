@@ -5,8 +5,11 @@ import { useDispatch, useSelector } from "react-redux";
 import Filter from "./components/Filter";
 import Products from "./components/Products";
 import Cart from "./components/Cart";
-import { fetchCartData, sendCartData } from "./store/cart-actions2";
+import Header from "./components/Header";
+import Profile from "./components/Profile";
+import { fetchCartData, sendCartData } from "./store/cart-actions";
 import { fetchProducts } from "./store/product-actions";
+import { uiActions } from "./store/ui-slice";
 
 
 function App() {
@@ -14,33 +17,34 @@ function App() {
 
   const products = useSelector((state) => state.products.products);
   const cart = useSelector((state) => state.cart);
+  const ui = useSelector((state) => state.ui);
 
   const [orderInfo, setOrderInfo] = useState({});
 
   useEffect(() => {
     dispatch(fetchCartData());
     dispatch(fetchProducts());
+    if (localStorage.getItem("token")) {
+      dispatch(uiActions.setToken(localStorage.getItem("token")));
+    }; 
   }, [dispatch]);
 
   useEffect(() => {
     if (cart.changed) {
       localStorage.setItem("cart", JSON.stringify(cart));
     }
-  }, [cart, dispatch]);
+  }, [cart]);
 
-  console.log(cart.totalQuantity);
 
   const orderHandler = (order) => {
-    setOrderInfo(order);
-    console.log(orderInfo);
+    dispatch(sendCartData(order));
+    console.log(order);
   };
 
 
   return (
     <div className="grid-container">
-      <header>
-        <a href="/">Jungle Shop</a>
-      </header>
+      <Header />
       <main>
         <div className="content">
           <div className="main">
@@ -48,7 +52,8 @@ function App() {
             <Products products={products} />
           </div>
           <div className="sidebar">
-            <Cart orderHandler={orderHandler}/>
+            {!ui.showProfile && <Cart orderHandler={orderHandler}/>}
+            {ui.showProfile && <Profile />}
           </div>
         </div>
       </main>

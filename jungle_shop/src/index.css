@@ -5,9 +5,10 @@ html {
 
 body,
 #root {
-  height: 100vh;
+  height: 100%;
   margin: 0;
   padding: 0;
+  
 }
 body,
 input,
@@ -39,25 +40,59 @@ a:link:hover {
 
 header {
   grid-area: header;
-  background-color: #1e6961;
+  position: sticky;
+  top: 0;
+  z-index: 999;
+  background: #134e5e;
+  background: -webkit-linear-gradient(to right, #134e5e, #71b280);
+  background: linear-gradient(to right, #134e5e, #71b280); 
   color: white;
-  padding: .5rem;
+  padding: 1rem;
   display: flex;
   align-items: center;
+  justify-content: space-between;
 }
 
-header a {
+@media (max-width: 800px) {
+  header {
+    padding: 1rem;
+  }
+}
+
+header div {
+  min-width: 25%;
+}
+
+header div a,
+.header-button {
+  border: 1px solid white;
   color: white;
+  font-weight: bold;
+  padding: 0.5rem 1rem;
+  margin: 2rem;
+  border-radius: 6px;
+  cursor: pointer;
+  background-color: transparent;
+}
+
+@media (max-width: 800px) {
+  header div a,
+  .header-button {
+    margin: 1rem;
+  }
 }
 
 main {
   grid-area: main;
+  padding: 1rem;
   
 }
 
 footer {
   grid-area: footer;
-  background-color: #1e6961;
+  background: #134e5e;
+  background: -webkit-linear-gradient(to right, #134e5e, #71b280);
+  background: linear-gradient(to right, #134e5e, #71b280); 
   color: white;
   display: flex;
   justify-content: center;
@@ -69,6 +104,12 @@ footer {
   flex-wrap: wrap;
 }
 
+@media (max-width: 1200px) {
+  .content {
+    flex-direction: column-reverse;
+  }
+}
+
 .main {
    flex: 3 60rem;
 }
@@ -77,10 +118,11 @@ footer {
   flex: 1 20rem;
 }
 
+
 /*products*/
 .products {
   display: flex;
-  justify-content: space-evenly;
+  justify-content: space-between;
   align-items: center;
   padding: 0;
   margin: 0;
@@ -88,10 +130,25 @@ footer {
   flex-wrap: wrap;
 }
 
+@media (max-width: 1400px) {
+  .products {
+    justify-content: space-evenly;
+    flex-grow: 1;
+  }
+}
+
 .products li {
   flex: 0 1 30rem;
-  height: 47rem;
-  padding: 1rem;
+  margin: auto;
+  margin: 0 1rem 2rem 1rem;
+  
+}
+
+@media (max-width: 700px) {
+  .products li {
+    margin: auto;
+    margin-bottom: 2rem;
+  }
 }
 
 .product {
@@ -102,41 +159,69 @@ footer {
 }
 
 .product img {
-  max-width: 37rem;
   max-height: 37rem;
+}
+
+@media (max-width: 700px) {
+  .product img {
+    /*max-height: 50rem;*/
+    flex-grow: 1;
+  }
+}
+
+.product a {
+  color:#1e6961;
+  font-family: inherit;
+  text-align: right;
+  font-size: large;
 }
 
 .product-price {
   display: flex;
-  justify-content: space-evenly;
+  justify-content: flex-end;
   align-items: center;
+  
 }
 
 .product-price div,
 .product-price button {
   text-align: center;
-  flex: 1;
+  /*flex: 1;*/
 }
 
 .product-price div {
   font-size: 2rem;
 }
 
-.button {
+.button,
+.button:visited,
+.button:link {
+  display: inline-block;
   padding: 1rem;
   border: .1rem #c0c0c0 solid;
   background-color: #f0f0f0;
   cursor: pointer;
-  border-radius: 3px;
+  border-radius: 5px;
+  color:#134e5e;
+  font: inherit;
+  transition: all .3s;
 }
 
 .button:hover {
-  border: .1rem black solid;
+  transform: translateY(-3px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, .2);
+}
+
+.button:active {
+  transform: translateY(1px);
+  box-shadow: 0 5px 5px rgba(0, 0, 0, .2);
 }
 
 .button.primary {
   background-color: #1e6961;
   color: white;
+  padding: 1rem 3rem;
+  margin-left: 2rem;
 }
 
 /*Filter*/
@@ -146,6 +231,7 @@ footer {
   margin: 1rem;
   border-bottom: .1rem gray solid;
   justify-content: space-between;
+  
 }
 
 .filter div {
@@ -153,11 +239,40 @@ footer {
 }
 
 /*Cart*/
+.cart-side {
+  display: flex;
+  width: 100%;
+  height: 100%;
+  flex-direction: column;
+  
+}
+
 .cart {
   padding: 1rem;
   padding-bottom: 1.5rem;
   margin: 1rem;
   display: flex;
+}
+.empty {
+  background-image: url("/public/images/plant-back.jpeg");
+  background-size: contain;
+  height: 100%;
+  padding: 2rem;  
+  margin: 0 10px 0 10px;
+}
+
+@media (max-width: 1200px) {
+  .empty {
+    background-size: cover;                      
+    background-repeat:   no-repeat;
+    background-position: center center;  
+  }
+}
+
+.empty h1 {
+  color: white;
+  font-size: 3.5rem;
+  white-space: nowrap;
 }
 
 .cart-header {
@@ -207,10 +322,20 @@ footer {
   flex: 1;
 }
 
+.order-message {
+  width: 100%;
+  color: white;
+  background-color: #1e6961;
+  border-radius: 3px;
+  text-align: center;
+  font-size: large;
+  padding-top: 5rem;
+  padding-bottom: 5rem;
+}
+
 /*Form*/
 form {
   width: 100%;
-  
 }
 
 .form-container {
@@ -230,13 +355,15 @@ input {
   border: .1rem #c0c0c0 solid;
 }
 
-/*product modal*/
+/*Product modal*/
 .product-details {
   display: flex;
-  flex-wrap: wrap;
+  flex-wrap: nowrap;
   justify-content: space-between;
   max-height: 95vh;
+  font-size: 2rem;
 }
+
 
 .product-details img {
   max-height: 100vh;
@@ -244,11 +371,133 @@ input {
   margin: 0;
 }
 
+@media (max-width: 1100px) {
+  .product-details img {
+    float: right;
+    min-width: 25rem;
+    max-height: 35rem;
+  }
+}
+
+.product-details-description {
+  margin-left: 5rem;
+}
+
+@media (max-width: 1200px) {
+  .product-details-description {
+    margin-left: 3rem;
+  }
+}
+
+.product-details-text {
+  columns: 2 auto;
+  margin-bottom: 5rem;
+}
+
+@media (max-width: 1100px) {
+  .product-details-text {
+    columns: 1;
+    margin-bottom: 3rem;
+  }
+}
+
+.price-order {
+  display: flex;
+  justify-content: flex-end;
+}
+
 .close-modal {
   position: absolute;
-  right: 1rem;
-  top: 2.5rem;
+  right: 3rem;
+  top: 3rem;
   z-index: 100;
 }
+
+/*login modal*/
+.login {
+  background-image: url("/public/images/plant-login.jpeg");
+  background-size: cover;
+  background-repeat: no-repeat;
+  width: 90vw;
+  height: 95%;
+  margin: 0 auto;
+  border-radius: .5rem;
+  display: flex;
+  align-items: center;
+ 
+}
+
+.login-box {
+  display: flex;
+  width: min(80%, 50rem);
+  height: min(70%, 40rem);
+  color: white;
+  background-color: rgba(256,256,256, .2);
+  margin: auto;
+  border-radius: .5rem;
+  border: 1px solid white;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-content: center;
+  padding: 3rem;
+}
+
+
+.login-form {
+  display: flex;
+  flex-direction: column;
+  gap: 3rem;
+}
+
+.login-input {
+  display: flex;
+  flex-direction: column;
+  margin: 1rem;
+}
+
+input {
+  outline: none;
+  border-radius: .5rem;
+}
+
+.login-action {
+  display: flex;
+  justify-content: space-between;
+}
+
+/*User profile*/
+.profile {
+  display: flex;
+  flex-flow: column wrap;
+  height: 100%;
+  background: #134e5e; 
+  background: -webkit-linear-gradient(to bottom, #134e5e, #71b280); 
+  background: linear-gradient(to bottom, #134e5e, #71b280); 
+  color: white;
+  padding: 0 3rem 0 3rem; 
+  border-radius: 3px;  
+}
+
+.profile-form {
+  display: flex;
+  flex-flow: column wrap;
+  gap: 1.5rem;
+}
+
+.profile-password {
+  display: flex;
+  flex-flow: column wrap;
+  gap: .3rem;
+  font-size: 1rem;
+}
+
+.profile-action {
+  margin-bottom: 2rem;
+}
+
+
+
+
+
 
 

@@ -1,13 +1,29 @@
-import React, { useState } from "react";
-import { useSelector } from "react-redux";
+import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import Fade from 'react-reveal/Fade';
+import { fetchCartData } from "../store/cart-actions";
+import { uiActions } from "../store/ui-slice";
 
 const Form = ({ orderHandler }) => {
   const [emailInputInfo, setEmailInputInfo] = useState("");
   const [nameInputInfo, setNameInputInfo] = useState("");
   const [addressInputInfo, setAddressInputInfo] = useState("");
+  const dispatch = useDispatch();
 
   const cart = useSelector(state => state.cart);
+  const orderPlaced = useSelector(state => state.ui.orderPlaced);
+
+  useEffect(() => {
+    if(orderPlaced) {
+    const timerId = setTimeout(() => {
+      dispatch(uiActions.showOrderPlaced(false));
+      localStorage.removeItem("cart");
+      dispatch(fetchCartData());
+      dispatch(uiActions.showCheckout(false));
+    }, 2000)
+    return () => {
+      clearTimeout(timerId)}
+  }}, [orderPlaced]);
 
   const emailInputHandler = (event) => {
     setEmailInputInfo(event.target.value);
@@ -23,6 +39,8 @@ const Form = ({ orderHandler }) => {
 
   const createOrder = (event) => {
     event.preventDefault();
+    dispatch(uiActions.showOrderPlaced(true));
+    console.log("ordered!!");
     orderHandler({
       email: emailInputInfo,
       name: nameInputInfo,
@@ -36,7 +54,7 @@ const Form = ({ orderHandler }) => {
 
   return (
     <div className="cart">
-      <form onSubmit={createOrder}>
+      {!orderPlaced && <form onSubmit={createOrder}>
          <Fade top cascade>
         <ul className="form-container">
           <li>
@@ -74,7 +92,8 @@ const Form = ({ orderHandler }) => {
           </li>
         </ul>
         </Fade>
-      </form>
+      </form>}
+      {orderPlaced && <div className="order-message">Thanks for your Order!</div>}
     </div>
   );
 };

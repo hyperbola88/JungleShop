@@ -54,6 +54,7 @@ const LogInModal = () => {
       headers: { "Content-Type": "application/json" },
     })
       .then((res) => {
+        console.log(res);
         dispatch(uiActions.toggleIsLoading(false));
         if (res.ok) {
           return res.json();
@@ -122,7 +123,6 @@ const LogInModal = () => {
               )}
               {ui.isLoading && <p>Loading...</p>}
               <button
-                type="button"
                 className="button primary"
                 onClick={switchAuthModeHandler}
               >

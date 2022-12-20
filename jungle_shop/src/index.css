@@ -55,12 +55,12 @@ header {
 
 @media (max-width: 800px) {
   header {
-    padding: 1rem;
+    padding: .5rem;
   }
 }
 
 header div {
-  min-width: 25%;
+  min-width: 20%;
 }
 
 header div a,
@@ -75,17 +75,26 @@ header div a,
   background-color: transparent;
 }
 
-@media (max-width: 800px) {
+@media (max-width: 900px) {
   header div a,
   .header-button {
     margin: 1rem;
   }
 }
 
+@media (max-width: 800px) {
+  header div a,
+  .header-button {
+    margin: .5rem;
+    font-size: 1.3rem;
+    padding: .5rem .5rem;
+  }
+}
+
+
 main {
   grid-area: main;
   padding: 1rem;
-  
 }
 
 footer {
@@ -223,6 +232,17 @@ footer {
   padding: 1rem 3rem;
   margin-left: 2rem;
 }
+
+@media (max-width: 800px) {
+  .button,
+  .button:visited,  
+  .button:link,
+  .button.primary {
+    font-size: 1.2rem;
+    padding: 1rem;
+    margin-left: 1rem;
+  }
+  }
 
 /*Filter*/
 .filter {
@@ -364,6 +384,11 @@ input {
   font-size: 2rem;
 }
 
+@media (max-width: 700px) {
+  .product-details{
+    flex-wrap: wrap;
+  }
+}
 
 .product-details img {
   max-height: 100vh;
@@ -386,6 +411,12 @@ input {
 @media (max-width: 1200px) {
   .product-details-description {
     margin-left: 3rem;
+  }
+}
+
+@media (max-width: 800px) {
+  .product-details-description {
+    margin: 0rem;
   }
 }
 

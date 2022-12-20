@@ -8,7 +8,7 @@ import LogInModal from "./LogInModal";
 const Header = () => {
    const dispatch = useDispatch();
    const ui = useSelector(state => state.ui);
-   const cart = useSelector(state => state.cart.items.length);
+   const cart = useSelector(state => state.cart.items.length > 0);
 
    const logInlHandler = () => {
       dispatch(uiActions.toggleLogIn(true));

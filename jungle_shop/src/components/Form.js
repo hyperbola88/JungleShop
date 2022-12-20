@@ -23,7 +23,7 @@ const Form = ({ orderHandler }) => {
     }, 2000)
     return () => {
       clearTimeout(timerId)}
-  }}, [orderPlaced]);
+  }}, [orderPlaced, dispatch]);
 
   const emailInputHandler = (event) => {
     setEmailInputInfo(event.target.value);

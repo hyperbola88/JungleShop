@@ -40,7 +40,6 @@ const Form = ({ orderHandler }) => {
   const createOrder = (event) => {
     event.preventDefault();
     dispatch(uiActions.showOrderPlaced(true));
-    console.log("ordered!!");
     orderHandler({
       email: emailInputInfo,
       name: nameInputInfo,

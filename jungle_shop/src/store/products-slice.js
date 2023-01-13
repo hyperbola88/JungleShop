@@ -18,8 +18,8 @@ const productsSlice = createSlice({
           price: fetchedProducts[key].price,
           image: fetchedProducts[key].image,
         });
-        state.products = products;
       }
+      state.products = products;
     },
     sortProducts(state, action) {
       const e = action.payload;

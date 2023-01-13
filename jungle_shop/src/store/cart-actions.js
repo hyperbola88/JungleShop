@@ -1,4 +1,5 @@
 import { cartActions } from "./cart-slice";
+import { uiActions } from "./ui-slice";
 
 export const fetchCartData = () => {
   return (dispatch) => {
@@ -43,4 +44,3 @@ export const sendCartData = (data) => {
     }
   };
 };
-

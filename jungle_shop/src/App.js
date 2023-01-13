@@ -38,7 +38,6 @@ function App() {
 
   const orderHandler = (order) => {
     dispatch(sendCartData(order));
-    console.log(order);
   };
 
 

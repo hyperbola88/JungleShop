@@ -3,11 +3,11 @@ import { useDispatch, useSelector } from "react-redux";
 import { Fade } from "react-reveal";
 import Modal from "react-modal";
 import { uiActions } from "../store/ui-slice";
+import { removeLocalToken, setLocalToken } from "../store/ui-actions";
 
 const LogInModal = () => {
   const emailInputRef = useRef();
   const passwordInputRef = useRef();
-
   const dispatch = useDispatch();
   const ui = useSelector((state) => state.ui);
 
@@ -26,7 +26,6 @@ const LogInModal = () => {
     );
     const currentTime = new Date().getTime();
     const receivedRemaningTime = expirationTime - currentTime;
-    console.log("recievedRemainingTime " + receivedRemaningTime);
     return receivedRemaningTime;
   };
 
@@ -54,7 +53,6 @@ const LogInModal = () => {
       headers: { "Content-Type": "application/json" },
     })
       .then((res) => {
-        console.log(res);
         dispatch(uiActions.toggleIsLoading(false));
         if (res.ok) {
           return res.json();
@@ -71,14 +69,13 @@ const LogInModal = () => {
       .then((data) => {
         const time = getRemaningTime(data);
         dispatch(uiActions.setRemaningTime(time));
-        dispatch(uiActions.loginHandler(data.idToken));
+        dispatch(setLocalToken(data.idToken));
         dispatch(uiActions.toggleLogIn(false));
         return time;
       })
       .then((time) => {
-        console.log(ui.remaningTime, time);
         setTimeout(() => {
-          dispatch(uiActions.logoutHandler());
+          dispatch(removeLocalToken());
         }, time);
       })
       .catch((err) => {

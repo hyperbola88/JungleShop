@@ -34,15 +34,12 @@ const uiSlice = createSlice({
     },
     loginHandler(state, action) {
       state.token = action.payload;
-      localStorage.setItem("token", action.payload);
-      console.log(state);
+      //localStorage.setItem("token", action.payload);
     },
     logoutHandler(state, action) {
       state.token = null;
       state.remaningTime = 0;
-      localStorage.removeItem("token");
       state.showProfile = false;
-      console.log(state);
     },
     toggleProfile(state, action) {
       state.showProfile = action.payload;
@@ -52,7 +49,6 @@ const uiSlice = createSlice({
     },
     setRemaningTime(state,action) {
       state.remaningTime = action.payload;
-      console.log(state.remaningTime, action.payload);
     },
     showOrderPlaced(state, action) {
       state.orderPlaced = action.payload;
